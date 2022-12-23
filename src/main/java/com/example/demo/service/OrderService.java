@@ -1,12 +1,11 @@
 package com.example.demo.service;
 
 
-import com.example.demo.domain.Order;
+import com.example.demo.model.Order;
 import com.example.demo.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -24,7 +23,7 @@ public class OrderService {
         order =  orderRepository.save(order);
         Order finalOrder = order;
         order.getOrderItems().forEach(orderItem -> {
-            orderItem.setOrder(finalOrder);
+            orderItem.setCustomer_order(finalOrder);
             orderItemService.save(orderItem);
         });
         return order;
